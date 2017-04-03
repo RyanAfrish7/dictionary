@@ -12,7 +12,7 @@ set (VERSION_INFO "Nightly")
 configure_file (${CMAKE_SOURCE_DIR}/config.vala.cmake ${CMAKE_BINARY_DIR}/src/config.vala)
 
 find_package (PkgConfig)
-pkg_check_modules (DEPS REQUIRED gthread-2.0 gee-0.8 gtk+-3.0>=3.10 granite libsoup-2.4 json-glib-1.0)
+pkg_check_modules (DEPS REQUIRED gio-2.0 gthread-2.0 gee-0.8 gtk+-3.0>=3.10 granite libsoup-2.4 json-glib-1.0)
 
 add_definitions (${DEPS_CFLAGS})
 link_directories (${DEPS_LIBRARY_DIRS})

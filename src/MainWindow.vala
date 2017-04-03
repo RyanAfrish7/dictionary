@@ -109,8 +109,8 @@ public class Dictionary.MainWindow : Gtk.ApplicationWindow {
                 pop_view ();
             }
         } else {
-
             if (stack.get_visible_child () != search_view) push_view (search_view);
+            search_view.search(search_entry.text);
         }
     }
 
