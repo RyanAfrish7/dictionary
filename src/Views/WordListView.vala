@@ -9,6 +9,9 @@ namespace Views {
             alert_view = new Granite.Widgets.AlertView(":(", "No words found", "edit-find-symbolic");
             alert_view.show_all();
 
+            set_policy(Gtk.PolicyType.NEVER,
+                Gtk.PolicyType.AUTOMATIC);
+
             list_box = new Gtk.ListBox ();
             list_box.expand = true;
             list_box.set_placeholder (alert_view);
@@ -17,11 +20,6 @@ namespace Views {
                     var row = (Widgets.WordListRow) r;
                     show_definition(row.get_definition ());
                 });
-            // DEBUG
-            Gdk.RGBA a = new Gdk.RGBA();
-            a.parse("#eeeff0");
-            list_box.override_background_color(Gtk.StateFlags.NORMAL, a);
-            // END DEBUG
             add(list_box);
         }
 

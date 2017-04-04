@@ -29,6 +29,7 @@ public class Dictionary.MainWindow : Gtk.ApplicationWindow {
             return false;
         });
 
+        search_entry.grab_focus_without_selecting();
         view_mode.selected = 0;
 
         view_mode.notify["selected"].connect (() => {
