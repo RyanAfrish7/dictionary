@@ -22,8 +22,10 @@ namespace Widgets {
                 column_spacing = 12;
                 row_spacing = 6;
 
-                headword = new Gtk.Label("");
+                headword = new Gtk.Label ("");
                 headword.set_line_wrap (true);
+                headword.set_lines (2);
+                headword.set_ellipsize (Pango.EllipsizeMode.END);
                 headword.set_justify (Gtk.Justification.FILL);
                 attach (headword, 0, 0, 1, 1);
             }
@@ -40,10 +42,10 @@ namespace Widgets {
                 }
 
                 if(definition.part_of_speech != null)
-                    markup += @" <span style=\"italic\" font_family=\"serif\" size=\"large\"> $(definition.part_of_speech) </span>";
+                    markup += @"<span style=\"italic\" font_family=\"serif\" size=\"large\"> $(definition.part_of_speech) </span>";
 
                 if(definition.get_senses ().length > 0)
-                    markup += @"\n <span font_family=\"serif\" size=\"large\">" + definition.get_senses ()[0].get_definitions ()[0] + "</span>";
+                    markup += @"\n<span font_family=\"serif\" size=\"large\">" + definition.get_senses ()[0].get_definitions ()[0] + "</span>";
 
                 headword.set_markup (markup);
             }

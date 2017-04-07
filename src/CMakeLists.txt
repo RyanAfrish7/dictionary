@@ -9,6 +9,7 @@ vala_precompile (
     Views/SearchView.vala
     Views/RecentView.vala
     Views/BookmarkView.vala
+    Views/DefinitionView.vala
 
     Widgets/WordListRow.vala
 

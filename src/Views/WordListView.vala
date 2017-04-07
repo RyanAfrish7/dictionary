@@ -3,6 +3,7 @@ namespace Views {
         public signal void show_definition (Core.Definition definition);
         protected Gtk.ListBox list_box;
         public Granite.Widgets.AlertView alert_view;
+        public Gtk.Stack stack;
 
         construct
         {
@@ -12,9 +13,14 @@ namespace Views {
             set_policy(Gtk.PolicyType.NEVER,
                 Gtk.PolicyType.AUTOMATIC);
 
+            stack = new Gtk.Stack ();
+            stack.set_transition_type (Gtk.StackTransitionType.CROSSFADE);
+            stack.set_transition_duration (400);
+            stack.add (alert_view);
+
             list_box = new Gtk.ListBox ();
             list_box.expand = true;
-            list_box.set_placeholder (alert_view);
+            list_box.set_placeholder (stack);
             list_box.activate_on_single_click = true;
             list_box.row_activated.connect ((r) => {
                     var row = (Widgets.WordListRow) r;

@@ -188,13 +188,13 @@ public class Core.Definition : Object {
             if (root.has_member ("lexical_unit"))
                 obj.lexical_unit = root.get_string_member ("lexical_unit");
 
-            if (root.has_member ("signposts"))
+            if (root.has_member ("signpost"))
                 obj.signpost = root.get_string_member ("signpost");
 
-            if (root.has_member ("synonymes"))
+            if (root.has_member ("synonym"))
                 obj.synonym = root.get_string_member ("synonym");
 
-            if (root.has_member ("opposites"))
+            if (root.has_member ("opposite"))
                 obj.opposite = root.get_string_member ("opposite");
 
             return obj;

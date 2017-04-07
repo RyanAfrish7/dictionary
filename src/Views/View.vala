@@ -1,5 +1,6 @@
 public abstract class Dictionary.View : Gtk.Stack {
-
+    public signal void show_definition (Core.Definition definition);
+    
     construct
     {
         get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);

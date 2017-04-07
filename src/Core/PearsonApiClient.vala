@@ -6,7 +6,7 @@ public errordomain ApiError {
 public class Core.PearsonDictionaryApiClient {
 
     public Soup.Message http_get_entries(string dictionary, string headword, int limit) throws GLib.Error {
-        string uri = @"http://api.pearson.com/v2/dictionaries/$dictionary/entries?headword=$headword*&limit=$limit";
+        string uri = @"http://api.pearson.com/v2/dictionaries/$dictionary/entries?limit=$limit&headword=$headword*";
 
         var session = new Soup.Session ();
         var message = new Soup.Message ("GET", uri);
@@ -19,9 +19,6 @@ public class Core.PearsonDictionaryApiClient {
     }
 
     public async Core.Definition[] search_word(string word) {
-
-        stdout.printf("Searching %s\n", word);
-        stdout.flush();
 
         SourceFunc callback = search_word.callback;
 
@@ -36,8 +33,6 @@ public class Core.PearsonDictionaryApiClient {
                 var results = root_object.get_array_member("results");
 
                 stdout.printf("Searching %s, %lld obtained of %lld results\n\n", word, (int64) results.get_length(), (int64) root_object.get_int_member("total"));
-                stdout.flush();
-
                 foreach (var w in results.get_elements())
                     definitions += Core.Definition.parse_json (w.get_object ());
 
@@ -53,7 +48,5 @@ public class Core.PearsonDictionaryApiClient {
 
         return definitions;
     }
-
-
 
 }

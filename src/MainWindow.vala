@@ -14,6 +14,7 @@ public class Dictionary.MainWindow : Gtk.ApplicationWindow {
     private Views.SearchView search_view;
     private Views.RecentView recent_view;
     private Views.BookmarkView bookmark_view;
+    private Views.DefinitionView definition_view;
 
     private Gee.LinkedList<View> return_history;
 
@@ -43,15 +44,24 @@ public class Dictionary.MainWindow : Gtk.ApplicationWindow {
             }
         });
 
+        search_view.show_definition.connect (show_definition);
+        recent_view.show_definition.connect (show_definition);
+        bookmark_view.show_definition.connect (show_definition);
+
         return_button.clicked.connect (on_return_clicked);
+    }
+
+    public void show_definition (Core.Definition definition) {
+        definition_view.set_definition (definition);
+        push_view (definition_view);
     }
 
     construct
     {
         title = "Dictionary";
         window_position = Gtk.WindowPosition.CENTER;
-        default_width = 800;
-        default_height = 640;
+
+        set_size_request (800, 640);
 
         view_mode = new Granite.Widgets.ModeButton ();
         view_mode.append_text ("Recent");
@@ -91,12 +101,14 @@ public class Dictionary.MainWindow : Gtk.ApplicationWindow {
         search_view = new Views.SearchView();
         recent_view = new Views.RecentView();
         bookmark_view = new Views.BookmarkView();
+        definition_view = new Views.DefinitionView();
 
         stack = new Gtk.Stack ();
         stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
         stack.add (recent_view);
         stack.add (bookmark_view);
         stack.add (search_view);
+        stack.add (definition_view);
 
         add (stack);
 
@@ -129,8 +141,6 @@ public class Dictionary.MainWindow : Gtk.ApplicationWindow {
         stack.set_visible_child (new_view);
         custom_header.label = new_view.get_header_name ();
         return_button.label = old_view.get_header_name ();
-
-        stdout.printf("SIZE %d\n", return_history.size);
     }
 
     private void pop_view () {
@@ -153,8 +163,6 @@ public class Dictionary.MainWindow : Gtk.ApplicationWindow {
             custom_title_stack.set_visible_child(view_mode_revealer);
             view_mode_revealer.reveal_child = true;
         }
-
-        stdout.printf("SIZE %d\n", return_history.size);
     }
 
     private void on_return_clicked() {
